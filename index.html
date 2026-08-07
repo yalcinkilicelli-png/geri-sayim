@@ -1,52 +1,75 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>15 Ağustos 2027 Geri Sayım</title>
 <style>
-body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
-font-family:Arial,sans-serif;background:#111;color:#fff}
-.card{width:min(760px,90vw);text-align:center;padding:42px 24px;border-radius:24px;
-background:#1d1d1d;box-shadow:0 12px 40px #0008}
-h1{font-size:clamp(28px,5vw,52px);margin:0 0 10px}
-.date{font-size:20px;opacity:.8;margin-bottom:35px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.box{background:#292929;border-radius:16px;padding:22px 8px}
-.num{font-size:clamp(30px,6vw,58px);font-weight:700}
-.label{font-size:14px;opacity:.7;margin-top:6px}
-.done{font-size:28px;font-weight:bold;padding:30px}
-@media(max-width:520px){.grid{grid-template-columns:repeat(2,1fr)}}
+* { box-sizing: border-box; }
+body {
+  margin: 0; min-height: 100vh; display: flex; align-items: center;
+  justify-content: center; font-family: Arial, sans-serif;
+  background: #111; color: #fff;
+}
+.card {
+  width: min(800px, 92vw); text-align: center; padding: 40px 22px;
+  border-radius: 24px; background: #1d1d1d;
+}
+h1 { font-size: clamp(28px, 6vw, 52px); margin: 0 0 10px; }
+.date { font-size: 20px; opacity: .75; margin-bottom: 30px; }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.box { background: #292929; border-radius: 16px; padding: 22px 8px; }
+.num { font-size: clamp(32px, 7vw, 64px); font-weight: 700; }
+.label { font-size: 14px; opacity: .7; margin-top: 7px; }
+.done { font-size: 30px; font-weight: bold; }
+@media (max-width: 520px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
 </style>
 </head>
 <body>
+
 <div class="card">
-<h1>⏳ İŞ BİTİŞ SAYACI</h1>
-<div class="date">15 Ağustos 2027 • 00:00</div>
-<div id="countdown" class="grid"></div>
+  <h1>⏳ İŞ BİTİŞ SAYACI</h1>
+  <div class="date">15 Ağustos 2027 • 00:00</div>
+  <div id="countdown" class="grid"></div>
 </div>
+
 <script>
 const target = new Date("2027-08-15T00:00:00+03:00").getTime();
 const el = document.getElementById("countdown");
 
-function update(){
+function update() {
   let diff = target - Date.now();
-  if(diff <= 0){
+
+  if (diff <= 0) {
     el.className = "done";
     el.innerHTML = "✅ SÜRE DOLDU";
     return;
   }
-  const day = Math.floor(diff / 86400000); diff %= 86400000;
-  const hour = Math.floor(diff / 3600000); diff %= 3600000;
-  const minute = Math.floor(diff / 60000); diff %= 60000;
+
+  const day = Math.floor(diff / 86400000);
+  diff %= 86400000;
+
+  const hour = Math.floor(diff / 3600000);
+  diff %= 3600000;
+
+  const minute = Math.floor(diff / 60000);
+  diff %= 60000;
+
   const second = Math.floor(diff / 1000);
+
   el.innerHTML = `
     <div class="box"><div class="num">${day}</div><div class="label">GÜN</div></div>
     <div class="box"><div class="num">${String(hour).padStart(2,"0")}</div><div class="label">SAAT</div></div>
     <div class="box"><div class="num">${String(minute).padStart(2,"0")}</div><div class="label">DAKİKA</div></div>
-    <div class="box"><div class="num">${String(second).padStart(2,"0")}</div><div class="label">SANİYE</div></div>`;
+    <div class="box"><div class="num">${String(second).padStart(2,"0")}</div><div class="label">SANİYE</div></div>
+  `;
 }
-update(); setInterval(update,1000);
+
+update();
+setInterval(update, 1000);
 </script>
+
 </body>
 </html>
