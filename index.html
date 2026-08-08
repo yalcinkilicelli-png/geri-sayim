@@ -4,18 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>İş Bitiş Sayacı</title>
+<title>İş Bitiş Sayacı - 15 Ağustos 2027</title>
 
 <style>
 * {
   box-sizing: border-box;
 }
 
-body {
+html, body {
   margin: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
   background: #eef2f5;
-  font-family: Arial, Helvetica, sans-serif;
   color: #10254a;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .container {
@@ -23,11 +28,11 @@ body {
   margin: auto;
   background: white;
   text-align: center;
-  padding: 25px 20px 0;
+  padding: 22px 18px 0;
 }
 
 h1 {
-  margin: 0 0 10px;
+  margin: 0 0 8px;
   font-size: clamp(30px, 6vw, 58px);
   letter-spacing: 1px;
 }
@@ -36,7 +41,7 @@ h1 {
   font-size: clamp(20px, 4vw, 32px);
   font-weight: bold;
   color: #3b7f25;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .grid {
@@ -49,7 +54,7 @@ h1 {
   background: #102d5b;
   color: white;
   border-radius: 16px;
-  padding: 22px 8px 17px;
+  padding: 20px 6px 16px;
   box-shadow: 0 5px 12px rgba(0,0,0,.18);
 }
 
@@ -60,24 +65,32 @@ h1 {
 }
 
 .label {
-  margin-top: 10px;
-  font-size: clamp(12px, 2vw, 17px);
+  margin-top: 9px;
+  font-size: clamp(11px, 2vw, 17px);
   color: #8bd12b;
   font-weight: bold;
 }
 
 .note {
-  margin: 22px 0 12px;
-  font-size: clamp(13px, 3vw, 22px);
+  margin: 18px 0 8px;
+  font-size: clamp(12px, 3vw, 22px);
   font-weight: bold;
 }
 
+/* YAVRU KUZU */
 .kuzu {
-  width: 100%;
-  max-height: 430px;
-  object-fit: contain;
   display: block;
-  margin: auto;
+  width: 100%;
+  max-width: 260px;
+  max-height: 220px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.done {
+  font-size: 32px;
+  font-weight: 800;
+  color: #a51e2b;
 }
 
 @media (max-width: 560px) {
@@ -97,11 +110,12 @@ h1 {
   }
 
   .note {
-    margin: 15px 0 8px;
+    margin: 14px 0 5px;
   }
 
   .kuzu {
-    max-height: 330px;
+    max-width: 210px;
+    max-height: 170px;
   }
 }
 </style>
@@ -111,80 +125,91 @@ h1 {
 
 <div class="container">
 
-<h1>⌛ İŞ BİTİŞ SAYACI</h1>
+  <h1>⌛ İŞ BİTİŞ SAYACI</h1>
 
-<div class="target">
-15 AĞUSTOS 2027
-</div>
+  <div class="target">
+    15 AĞUSTOS 2027
+  </div>
 
-<div id="countdown" class="grid"></div>
+  <div id="countdown" class="grid"></div>
 
-<div class="note">
-HEDEFİMİZE KALAN SÜREYİ BİRLİKTE TAKİP EDİYORUZ.
-</div>
+  <div class="note">
+    HEDEFİMİZE KALAN SÜREYİ BİRLİKTE TAKİP EDİYORUZ.
+  </div>
 
-<img class="kuzu" src="kuzu.png" alt="Kuzu">
+  <!-- Kuzu görseli -->
+  <img
+    class="kuzu"
+    src="kuzu.png"
+    alt="Yavru kuzu">
 
 </div>
 
 <script>
 
 const target =
-new Date("2027-08-15T00:00:00+03:00").getTime();
+  new Date("2027-08-15T00:00:00+03:00").getTime();
 
 const el =
-document.getElementById("countdown");
+  document.getElementById("countdown");
 
 function update() {
 
-let diff = target - Date.now();
+  let diff = target - Date.now();
 
-if (diff <= 0) {
-el.innerHTML = "✅ SÜRE DOLDU";
-return;
-}
+  if (diff <= 0) {
+    el.className = "done";
+    el.innerHTML = "✅ SÜRE DOLDU";
+    return;
+  }
 
-const day =
-Math.floor(diff / 86400000);
+  const day =
+    Math.floor(diff / 86400000);
 
-diff %= 86400000;
+  diff %= 86400000;
 
-const hour =
-Math.floor(diff / 3600000);
+  const hour =
+    Math.floor(diff / 3600000);
 
-diff %= 3600000;
+  diff %= 3600000;
 
-const minute =
-Math.floor(diff / 60000);
+  const minute =
+    Math.floor(diff / 60000);
 
-diff %= 60000;
+  diff %= 60000;
 
-const second =
-Math.floor(diff / 1000);
+  const second =
+    Math.floor(diff / 1000);
 
-el.innerHTML = `
+  el.innerHTML = `
 
-<div class="box">
-<div class="num">${day}</div>
-<div class="label">GÜN</div>
-</div>
+    <div class="box">
+      <div class="num">${day}</div>
+      <div class="label">GÜN</div>
+    </div>
 
-<div class="box">
-<div class="num">${String(hour).padStart(2,"0")}</div>
-<div class="label">SAAT</div>
-</div>
+    <div class="box">
+      <div class="num">
+        ${String(hour).padStart(2,"0")}
+      </div>
+      <div class="label">SAAT</div>
+    </div>
 
-<div class="box">
-<div class="num">${String(minute).padStart(2,"0")}</div>
-<div class="label">DAKİKA</div>
-</div>
+    <div class="box">
+      <div class="num">
+        ${String(minute).padStart(2,"0")}
+      </div>
+      <div class="label">DAKİKA</div>
+    </div>
 
-<div class="box">
-<div class="num">${String(second).padStart(2,"0")}</div>
-<div class="label">SANİYE</div>
-</div>
+    <div class="box">
+      <div class="num">
+        ${String(second).padStart(2,"0")}
+      </div>
+      <div class="label">SANİYE</div>
+    </div>
 
-`;
+  `;
 }
 
 update();
